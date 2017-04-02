@@ -1,6 +1,6 @@
 # feed-archive-stream
 
-Stream API for Atom feed archives.
+Stream API for Atom feed archives. Follows `next-archive` and `prev-archive` links when iterating Atom entries.
 
 ## Examples
 
@@ -11,13 +11,13 @@ Feed feed = FeedSource.first("http://localhost:8080/sim/api/feed/1");
 feed.stream().map(e -> e.getUri()).forEach(System.out::println);
 ```
 
-### Read backward, recent first.
+### Read backward form the end.
 
 ```java
 Feed feed = FeedSource.last("http://localhost:8080/sim/api/feed/recent");
 feed.stream().map(e -> e.getUri()).forEach(System.out::println);
 ```
-### Find specific node
+### Find specific node.
 
 ```java
 Feed feed = FeedSource.last("http://localhost:8080/sim/api/feed/recent");
