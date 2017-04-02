@@ -11,7 +11,7 @@ Feed feed = FeedSource.first("http://localhost:8080/sim/api/feed/1");
 feed.stream().map(e -> e.getUri()).forEach(System.out::println);
 ```
 
-### Read backward form the end.
+### Read backward.
 
 ```java
 Feed feed = FeedSource.last("http://localhost:8080/sim/api/feed/recent");
@@ -30,6 +30,8 @@ Optional<Entry> entry = feed.stream().
 
 ```javascript
 var feedSource = Java.type('com.github.attiand.archive.FeedSource');
-var feed = feedSource.first('http://localhost:8080/sim/api/feed/recent');
-var entry = feed.stream().filter(function(e) e.getUri() == '3197a96f-cf9d-4791-ba3b-cafe2d02e9f2').findFirst();
+var feed = feedSource.first('http://localhost:8080/sim/api/feed/1');
+var entry = feed.stream().
+                 filter(function(e) e.getUri() == '3197a96f-cf9d-4791-ba3b-cafe2d02e9f2').
+								 findFirst();
 ```
