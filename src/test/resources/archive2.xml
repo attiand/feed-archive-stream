@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<title type="text">Title</title>
+	<link rel="prev-archive" type="application/atom+xml"
+		href="src/test/resources/archive1.xml" />
+	<link rel="self" type="application/atom+xml" href="http://localhost:8080/sim/api/feed/recent" />
+	<link rel="via" type="application/atom+xml" href="http://localhost:8080/sim/api/feed/2" />
+	<id>urn:id:2</id>
+	<updated>2017-04-02T06:33:48Z</updated>
+	<entry>
+		<category term="myterm" label="mylabel" />
+		<id>e4b3606b-d989-4044-a7ec-79527e075afe</id>
+		<updated>2017-04-02T06:33:26Z</updated>
+		<content type="application/xml">
+			<OrderEventRepresentation xmlns="http://api.example.simone.uhr.se">
+				<id>e4b3606b-d989-4044-a7ec-79527e075afe</id>
+				<link>
+					<rel>order</rel>
+					<href>http://localhost:8080/sim/api/order/e4b3606b-d989-4044-a7ec-79527e075afe</href>
+					<type>application/json</type>
+				</link>
+			</OrderEventRepresentation>
+		</content>
+	</entry>
+</feed>
