@@ -1,55 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <title type="text">Title</title>
-    <link rel="self" type="application/atom+xml" href="https://nya-01.ladok.umu.se:455/admission/feed/recent" />
-    <link rel="via" type="application/atom+xml" href="https://nya-01.ladok.umu.se:455/admission/feed/1" />
-    <id>urn:id:1</id>
-    <updated>2017-03-31T13:35:34Z</updated>
-    <entry>
-        <category term="BTH" label="EducationOrgId" />
-        <category term="admission-event" label="Event-typ" />
-        <id>4ade0415-abdc-4024-b838-9c8961e80cca</id>
-        <updated>2017-02-24T09:52:43Z</updated>
-        <content type="application/vnd.uhr.nya+xml">
-            <ver:versions xmlns:ver="http://schema.nya.se/versions">
-                <ver:version type="application/vnd.uhr.nya.v1+xml">
-                    <adm:admissionevent xmlns:adm="http://schema.nya.se/admission" xmlns:ev="http://schema.nya.se/event"
-                        xmlns:dap="http://schema.nya.se/dap" xmlns:nya="http://schema.nya.se">
-                        <ev:eventId>4ade0415-abdc-4024-b838-9c8961e80cca</ev:eventId>
-                        <adm:courseOfferingId>10312</adm:courseOfferingId>
-                        <adm:educationOrgId>BTH</adm:educationOrgId>
-                        <adm:admissionRoundId>REF130</adm:admissionRoundId>
-                        <adm:studentId>1ce87954-5fbe-453f-8ac1-39f0b9881f48</adm:studentId>
-                        <adm:admissionEventType>ADMISSION_REVOKED</adm:admissionEventType>
-                    </adm:admissionevent>
-                </ver:version>
-            </ver:versions>
-        </content>
-    </entry>
-    <entry>
-        <category term="BTH" label="EducationOrgId" />
-        <category term="admission-event" label="Event-typ" />
-        <id>3197a96f-cf9d-4791-ba3b-cafe2d02e9f2</id>
-        <updated>2017-02-24T09:52:33Z</updated>
-        <content type="application/vnd.uhr.nya+xml">
-            <ver:versions xmlns:ver="http://schema.nya.se/versions">
-                <ver:version type="application/vnd.uhr.nya.v1+xml">
-                    <adm:admissionevent xmlns:adm="http://schema.nya.se/admission" xmlns:ev="http://schema.nya.se/event"
-                        xmlns:dap="http://schema.nya.se/dap" xmlns:nya="http://schema.nya.se">
-                        <ev:eventId>3197a96f-cf9d-4791-ba3b-cafe2d02e9f2</ev:eventId>
-                        <adm:courseOfferingId>10312</adm:courseOfferingId>
-                        <adm:educationOrgId>BTH</adm:educationOrgId>
-                        <adm:admissionRoundId>REF130</adm:admissionRoundId>
-                        <adm:studentId>1ce87954-5fbe-453f-8ac1-39f0b9881f48</adm:studentId>
-                        <adm:admissionEventType>ADMITTED</adm:admissionEventType>
-                        <adm:generalEntranceElig>11</adm:generalEntranceElig>
-                        <adm:specElig>12</adm:specElig>
-                        <adm:selCriterionId>AP</adm:selCriterionId>
-                        <adm:selCriterionDescription>Akademiska poäng</adm:selCriterionDescription>
-                        <adm:applFeePaid>false</adm:applFeePaid>
-                    </adm:admissionevent>
-                </ver:version>
-            </ver:versions>
-        </content>
-    </entry>
+	<title type="text">Title</title>
+	<link href="src/test/resources/archive1.xml" rel="self"
+		type="application/atom+xml" />
+	<id>urn:id:1</id>
+	<updated>2017-03-31T13:35:34Z</updated>
+	<entry>
+		<category label="mylabel" term="myterm" />
+		<id>4ade0415-abdc-4024-b838-9c8961e80cca</id>
+		<updated>2017-02-24T09:52:43Z</updated>
+		<content type="application/xml">
+			<OrderEventRepresentation xmlns="http://api.example.simone.uhr.se">
+				<id>1874db70-26c8-42da-a5bc-ba927fb15926</id>
+				<link>
+					<rel>order</rel>
+					<href>http://localhost:8080/sim/api/order/1874db70-26c8-42da-a5bc-ba927fb15926
+					</href>
+					<type>application/json</type>
+				</link>
+			</OrderEventRepresentation>
+		</content>
+	</entry>
+	<entry>
+		<category label="mylabel" term="myterm" />
+		<id>3197a96f-cf9d-4791-ba3b-cafe2d02e9f2</id>
+		<updated>2017-02-24T09:52:33Z</updated>
+		<content type="application/xml">
+			<OrderEventRepresentation xmlns="http://api.example.simone.uhr.se">
+				<id>1874db70-26c8-42da-a5bc-ba927fb15926</id>
+				<link>
+					<rel>order</rel>
+					<href>http://localhost:8080/sim/api/order/1874db70-26c8-42da-a5bc-ba927fb15926
+					</href>
+					<type>application/json</type>
+				</link>
+			</OrderEventRepresentation>
+		</content>
+	</entry>
 </feed>

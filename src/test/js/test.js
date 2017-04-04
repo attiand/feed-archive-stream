@@ -1,7 +1,7 @@
 describe("drive js api", function() {
 	it("iterate forward", function() {
 		var feedSource = Java.type("com.github.attiand.archive.FeedSource");
-		var feed = feedSource.first("src/test/resources/simple.xml");
+		var feed = feedSource.fromUri("src/test/resources/simple.xml");
 		var it = feed.iterator();
 
 		expect(it.hasNext()).toBe(true);
@@ -13,7 +13,7 @@ describe("drive js api", function() {
 	
 	it("stream find", function() {
 		var feedSource = Java.type("com.github.attiand.archive.FeedSource");
-		var feed = feedSource.first("src/test/resources/simple.xml");
+		var feed = feedSource.fromUri("src/test/resources/simple.xml");
 		var entry = feed.stream().filter(function(e) e.getUri() == '3197a96f-cf9d-4791-ba3b-cafe2d02e9f2').findFirst();
 
 		expect(entry.isPresent()).toBe(true);

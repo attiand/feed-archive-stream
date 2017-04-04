@@ -27,28 +27,33 @@ import com.rometools.rome.io.XmlReader;
 public class Feed {
 
 	private final FeedSourceFactory factory;
-	private final Direction direction;
-	private final URI uri;
+	private final URI baseUri;
 
 	Feed(FeedSourceFactory factory, Direction direction, URI uri) throws URISyntaxException {
 		this.factory = factory;
-		this.direction = direction;
-		this.uri = uri;
+		this.baseUri = uri;
 	}
 
 	public Stream<Entry> stream() {
-		return StreamSupport.stream(
-				Spliterators.spliteratorUnknownSize(new EntryIterator(uri), Spliterator.ORDERED | Spliterator.NONNULL),
-				false);
+		return StreamSupport.stream(Spliterators.spliteratorUnknownSize(new EntryIterator(baseUri, Direction.FORWARD),
+				Spliterator.ORDERED | Spliterator.NONNULL), false);
+	}
+
+	public Stream<Entry> reverseStream() {
+		return StreamSupport.stream(Spliterators.spliteratorUnknownSize(new EntryIterator(baseUri, Direction.BACKWARD),
+				Spliterator.ORDERED | Spliterator.NONNULL), false);
 	}
 
 	public Iterator<Entry> iterator() throws Exception {
-		return new EntryIterator(uri);
+		return new EntryIterator(baseUri, Direction.FORWARD);
 	}
 
-	Optional<SyndFeed> getNextFeed(SyndFeed feed) {
-		Optional<SyndLink> prev = feed.getLinks().stream().filter(link -> link.getRel().equals(direction.getRel()))
-				.findFirst();
+	public Iterator<Entry> reverseIterator() throws Exception {
+		return new EntryIterator(baseUri, Direction.BACKWARD);
+	}
+
+	Optional<SyndFeed> getNextFeed(SyndFeed feed, String rel) {
+		Optional<SyndLink> prev = feed.getLinks().stream().filter(link -> link.getRel().equals(rel)).findFirst();
 		try {
 			return prev.isPresent() ? getFeed(new URI(prev.get().getHref())) : Optional.empty();
 		} catch (URISyntaxException e) {
@@ -68,21 +73,23 @@ public class Feed {
 	}
 
 	class EntryIterator implements Iterator<Entry> {
-		private Optional<SyndFeed> feed;
+		private final Direction direction;
+		private Optional<SyndFeed> baseFeed;
 		private ListIterator<SyndEntry> entriesIterator;
 
-		EntryIterator(URI uri) {
-			feed = getFeed(uri);
-			entriesIterator = getFeedIterator(feed);
+		EntryIterator(URI uri, Direction direction) {
+			this.direction = direction;
+			this.baseFeed = getFeed(uri);
+			this.entriesIterator = getFeedIterator(baseFeed);
 		}
 
 		public boolean hasNext() {
 			if (direction == Direction.FORWARD ? entriesIterator.hasNext() : entriesIterator.hasPrevious()) {
 				return true;
 			} else {
-				if (feed.isPresent()) {
-					feed = getNextFeed(feed.get());
-					entriesIterator = getFeedIterator(feed);
+				if (baseFeed.isPresent()) {
+					baseFeed = getNextFeed(baseFeed.get(), direction.getRel());
+					entriesIterator = getFeedIterator(baseFeed);
 					return direction == Direction.FORWARD ? entriesIterator.hasNext() : entriesIterator.hasPrevious();
 				} else {
 					return false;

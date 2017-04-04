@@ -1,10 +1,20 @@
 package com.github.attiand.archive;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.jdom2.Element;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import com.rometools.rome.feed.CopyFrom;
 import com.rometools.rome.feed.module.Module;
@@ -31,6 +41,24 @@ public class Entry {
 	@Override
 	public String toString() {
 		return getContentsAsString();
+	}
+
+	private static Document getDom(DocumentBuilder builder, String xml) {
+		try {
+			return builder.parse(new InputSource(new StringReader(xml)));
+		} catch (SAXException | IOException e) {
+			throw new XmlParseException("Can't create DOM", e);
+		}
+	}
+
+	public Stream<Document> dom() {
+		try {
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			return getContents().stream().map(e -> getDom(builder, e.getValue()));
+		} catch (ParserConfigurationException e) {
+			throw new XmlParseException("Can't configure DOM factory", e);
+		}
 	}
 
 	// deligates

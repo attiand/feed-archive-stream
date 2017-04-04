@@ -6,7 +6,7 @@
 	<artifactId>feed-archive-stream</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
-	<name>Implements a simple API for atom feeds, intended to be used with Neoload</name>
+	<description>Implements a stream API for atom feeds</description>
 	<url>http://maven.apache.org</url>
 
 	<properties>

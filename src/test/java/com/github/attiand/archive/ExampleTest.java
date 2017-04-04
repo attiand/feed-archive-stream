@@ -8,14 +8,14 @@ public class ExampleTest {
 	@Ignore
 	@Test
 	public void shouldReadBackward() throws Exception {
-		Feed feed = FeedSource.last("src/test/resources/simple.xml");
-		feed.stream().map(e -> e.getUri()).forEach(System.out::println);
+		Feed feed = FeedSource.fromUri("src/test/resources/simple.xml");
+		feed.reverseStream().map(e -> e.getUri()).forEach(System.out::println);
 	}
-	
+
 	@Ignore
 	@Test
 	public void shouldReadForward() throws Exception {
-		Feed feed = FeedSource.first("src/test/resources/simple.xml");
+		Feed feed = FeedSource.fromUri("src/test/resources/simple.xml");
 		feed.stream().map(e -> e.getUri()).forEach(System.out::println);
 	}
 }
