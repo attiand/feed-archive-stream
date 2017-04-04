@@ -1,15 +1,13 @@
 package com.github.attiand.archive;
 
+import static com.github.attiand.archive.XPathMapper.xpath;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 import java.util.Optional;
 
 import org.junit.Test;
-
-import com.github.attiand.archive.Entry;
-import com.github.attiand.archive.Feed;
-import com.github.attiand.archive.FeedSource;
+import org.w3c.dom.Element;
 
 public class StreamTest {
 
@@ -21,5 +19,16 @@ public class StreamTest {
 
 		assertThat(entry.isPresent(), is(true));
 		assertThat(entry.get().getUpdatedDate().toInstant().toString(), is("2017-02-24T09:52:33Z"));
+	}
+
+	@Test
+	public void example() throws Exception {
+		Feed feed = FeedSource.fromUri("src/test/resources/simple.xml");
+		Optional<Element> entry = feed.stream().flatMap(e -> e.dom()).flatMap(xpath("//*:rel")).findFirst();
+
+		if (entry.isPresent()) {
+			System.out.println(entry.get().getTextContent());
+		}
+
 	}
 }
