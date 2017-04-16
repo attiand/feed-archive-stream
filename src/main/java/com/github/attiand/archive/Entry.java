@@ -2,8 +2,10 @@ package com.github.attiand.archive;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -63,8 +65,8 @@ public class Entry {
 
 	// Delegates
 
-	public String getUri() {
-		return deligate.getUri();
+	public Optional<String> getUri() {
+		return Optional.ofNullable(deligate.getUri());
 	}
 
 	public void copyFrom(CopyFrom obj) {
@@ -75,24 +77,24 @@ public class Entry {
 		deligate.setUri(uri);
 	}
 
-	public String getTitle() {
-		return deligate.getTitle();
+	public Optional<String> getTitle() {
+		return Optional.ofNullable(deligate.getTitle());
 	}
 
 	public void setTitle(String title) {
 		deligate.setTitle(title);
 	}
 
-	public SyndContent getTitleEx() {
-		return deligate.getTitleEx();
+	public Optional<SyndContent> getTitleEx() {
+		return Optional.ofNullable(deligate.getTitleEx());
 	}
 
 	public void setTitleEx(SyndContent title) {
 		deligate.setTitleEx(title);
 	}
 
-	public String getLink() {
-		return deligate.getLink();
+	public Optional<String> getLink() {
+		return Optional.ofNullable(deligate.getLink());
 	}
 
 	public void setLink(String link) {
@@ -100,15 +102,15 @@ public class Entry {
 	}
 
 	public List<SyndLink> getLinks() {
-		return deligate.getLinks();
+		return deligate.getLinks() == null ? Collections.emptyList() : deligate.getLinks();
 	}
 
 	public void setLinks(List<SyndLink> links) {
 		deligate.setLinks(links);
 	}
 
-	public SyndContent getDescription() {
-		return deligate.getDescription();
+	public Optional<SyndContent> getDescription() {
+		return Optional.ofNullable(deligate.getDescription());
 	}
 
 	public void setDescription(SyndContent description) {
@@ -131,16 +133,16 @@ public class Entry {
 		deligate.setEnclosures(enclosures);
 	}
 
-	public Date getPublishedDate() {
-		return deligate.getPublishedDate();
+	public Optional<Date> getPublishedDate() {
+		return Optional.ofNullable(deligate.getPublishedDate());
 	}
 
 	public void setPublishedDate(Date publishedDate) {
 		deligate.setPublishedDate(publishedDate);
 	}
 
-	public Date getUpdatedDate() {
-		return deligate.getUpdatedDate();
+	public Optional<Date> getUpdatedDate() {
+		return Optional.ofNullable(deligate.getUpdatedDate());
 	}
 
 	public void setUpdatedDate(Date updatedDate) {
@@ -148,15 +150,15 @@ public class Entry {
 	}
 
 	public List<SyndPerson> getAuthors() {
-		return deligate.getAuthors();
+		return deligate.getAuthors() == null ? Collections.emptyList() : deligate.getAuthors();
 	}
 
 	public void setAuthors(List<SyndPerson> authors) {
 		deligate.setAuthors(authors);
 	}
 
-	public String getAuthor() {
-		return deligate.getAuthor();
+	public Optional<String> getAuthor() {
+		return Optional.ofNullable(deligate.getAuthor());
 	}
 
 	public void setAuthor(String author) {
@@ -164,7 +166,7 @@ public class Entry {
 	}
 
 	public List<SyndPerson> getContributors() {
-		return deligate.getContributors();
+		return deligate.getContributors() == null ? Collections.emptyList() : deligate.getContributors();
 	}
 
 	public void setContributors(List<SyndPerson> contributors) {
@@ -187,12 +189,12 @@ public class Entry {
 		deligate.setSource(source);
 	}
 
-	public Object getWireEntry() {
-		return deligate.getWireEntry();
+	public Optional<Object> getWireEntry() {
+		return Optional.ofNullable(deligate.getWireEntry());
 	}
 
-	public Module getModule(String uri) {
-		return deligate.getModule(uri);
+	public Optional<Module> getModule(String uri) {
+		return Optional.ofNullable(deligate.getModule(uri));
 	}
 
 	public List<Module> getModules() {
@@ -211,8 +213,8 @@ public class Entry {
 		deligate.setForeignMarkup(foreignMarkup);
 	}
 
-	public String getComments() {
-		return deligate.getComments();
+	public Optional<String> getComments() {
+		return Optional.ofNullable(deligate.getComments());
 	}
 
 	public void setComments(String comments) {
@@ -223,7 +225,7 @@ public class Entry {
 		return deligate.clone();
 	}
 
-	public SyndLink findRelatedLink(String relation) {
-		return deligate.findRelatedLink(relation);
+	public Optional<SyndLink> findRelatedLink(String relation) {
+		return Optional.ofNullable(deligate.findRelatedLink(relation));
 	}
 }

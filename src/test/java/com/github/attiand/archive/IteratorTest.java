@@ -18,9 +18,9 @@ public class IteratorTest {
 		Feed feed = FeedSource.fromUri("src/test/resources/simple.xml");
 		Iterator<Entry> it = feed.iterator();
 		assertThat(it.hasNext(), is(true));
-		assertThat(it.next().getUri(), is("4ade0415-abdc-4024-b838-9c8961e80cca"));
+		assertThat(it.next().getUri().get(), is("4ade0415-abdc-4024-b838-9c8961e80cca"));
 		assertThat(it.hasNext(), is(true));
-		assertThat(it.next().getUri(), is("3197a96f-cf9d-4791-ba3b-cafe2d02e9f2"));
+		assertThat(it.next().getUri().get(), is("3197a96f-cf9d-4791-ba3b-cafe2d02e9f2"));
 		assertThat(it.hasNext(), is(false));
 	}
 
@@ -29,9 +29,9 @@ public class IteratorTest {
 		Feed feed = FeedSource.fromUri("src/test/resources/simple.xml");
 		Iterator<Entry> it = feed.reverseIterator();
 		assertThat(it.hasNext(), is(true));
-		assertThat(it.next().getUri(), is("3197a96f-cf9d-4791-ba3b-cafe2d02e9f2"));
+		assertThat(it.next().getUri().get(), is("3197a96f-cf9d-4791-ba3b-cafe2d02e9f2"));
 		assertThat(it.hasNext(), is(true));
-		assertThat(it.next().getUri(), is("4ade0415-abdc-4024-b838-9c8961e80cca"));
+		assertThat(it.next().getUri().get(), is("4ade0415-abdc-4024-b838-9c8961e80cca"));
 		assertThat(it.hasNext(), is(false));
 	}
 }

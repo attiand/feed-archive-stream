@@ -16,8 +16,8 @@ public class FeedArchiveTest {
 		long count = feed.stream().count();
 
 		assertThat(count, is(101L));
-		assertThat(feed.stream().map(e -> e.getUri()).findFirst().get(), is("c66740f8-f776-48a2-b4d6-d0197975133e"));
-		assertThat(feed.stream().skip(count - 1).map(e -> e.getUri()).findFirst().get(),
+		assertThat(feed.stream().map(e -> e.getUri()).findFirst().get().get(), is("c66740f8-f776-48a2-b4d6-d0197975133e"));
+		assertThat(feed.stream().skip(count - 1).map(e -> e.getUri()).findFirst().get().get(),
 				is("e4b3606b-d989-4044-a7ec-79527e075afe"));
 	}
 
@@ -27,8 +27,8 @@ public class FeedArchiveTest {
 		long count = feed.reverseStream().count();
 
 		assertThat(count, is(101L));
-		assertThat(feed.reverseStream().map(e -> e.getUri()).findFirst().get(), is("e4b3606b-d989-4044-a7ec-79527e075afe"));
-		assertThat(feed.reverseStream().skip(count - 1).map(e -> e.getUri()).findFirst().get(),
+		assertThat(feed.reverseStream().map(e -> e.getUri()).findFirst().get().get(), is("e4b3606b-d989-4044-a7ec-79527e075afe"));
+		assertThat(feed.reverseStream().skip(count - 1).map(e -> e.getUri()).findFirst().get().get(),
 				is("c66740f8-f776-48a2-b4d6-d0197975133e"));
 	}
 }
