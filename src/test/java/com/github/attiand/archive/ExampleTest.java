@@ -7,18 +7,18 @@ import org.junit.Test;
 
 public class ExampleTest {
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void shouldReadForward() throws Exception {
 		Feed feed = FeedSource.fromUri("src/test/resources/simple.xml");
-		feed.stream().map(e -> e.getUri()).forEach(u -> u.ifPresent(System.out::println));
+		feed.stream().map(e -> e.getUri()).filter(Optional::isPresent).map(Optional::get).forEach(System.out::println);
 	}
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void shouldReadBackward() throws Exception {
 		Feed feed = FeedSource.fromUri("src/test/resources/simple.xml");
-		feed.reverseStream().map(e -> e.getUri()).forEach(u -> u.ifPresent(System.out::println));
+		feed.reverseStream().map(e -> e.getUri()).filter(Optional::isPresent).map(Optional::get).forEach(System.out::println);
 	}
 
 	@Ignore
