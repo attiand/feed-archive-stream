@@ -61,7 +61,7 @@ public class Entry {
 		}
 	}
 
-	// deligates
+	// Delegates
 
 	public String getUri() {
 		return deligate.getUri();

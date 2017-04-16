@@ -16,7 +16,6 @@ import java.util.stream.StreamSupport;
 
 import com.github.attiand.archive.internal.AbstractFeedSource;
 import com.github.attiand.archive.internal.Direction;
-import com.github.attiand.archive.internal.FeedSourceFactory;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.feed.synd.SyndLink;
@@ -29,7 +28,7 @@ public class Feed {
 	private final FeedSourceFactory factory;
 	private final URI baseUri;
 
-	Feed(FeedSourceFactory factory, Direction direction, URI uri) throws URISyntaxException {
+	Feed(FeedSourceFactory factory, URI uri) {
 		this.factory = factory;
 		this.baseUri = uri;
 	}

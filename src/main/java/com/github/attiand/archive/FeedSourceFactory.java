@@ -1,4 +1,4 @@
-package com.github.attiand.archive.internal;
+package com.github.attiand.archive;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +15,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
 
-import com.github.attiand.archive.FeedSourceException;
+import com.github.attiand.archive.internal.AbstractFeedSource;
 
 public class FeedSourceFactory {
 
