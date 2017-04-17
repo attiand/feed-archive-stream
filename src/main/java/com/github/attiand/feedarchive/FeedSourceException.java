@@ -1,4 +1,4 @@
-package com.github.attiand.archive;
+package com.github.attiand.feedarchive;
 
 import java.net.URI;
 

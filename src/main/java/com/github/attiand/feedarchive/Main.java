@@ -1,4 +1,4 @@
-package com.github.attiand.archive;
+package com.github.attiand.feedarchive;
 
 import java.net.URISyntaxException;
 import java.util.Arrays;
@@ -13,7 +13,7 @@ public class Main {
 		if (opts.size() > 0 && opts.size() < 3) {
 			String uri = opts.get(opts.size() - 1);
 
-			Feed feed = FeedSource.fromUri(uri);
+			Feed feed = FeedReader.fromUri(uri);
 
 			Stream<Entry> strem = opts.contains("-b") ? feed.reverseStream() : feed.stream();
 

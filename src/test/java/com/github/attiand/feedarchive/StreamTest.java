@@ -1,4 +1,4 @@
-package com.github.attiand.archive;
+package com.github.attiand.feedarchive;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
@@ -7,15 +7,15 @@ import java.util.Optional;
 
 import org.junit.Test;
 
-import com.github.attiand.archive.Entry;
-import com.github.attiand.archive.Feed;
-import com.github.attiand.archive.FeedSource;
+import com.github.attiand.feedarchive.Entry;
+import com.github.attiand.feedarchive.Feed;
+import com.github.attiand.feedarchive.FeedReader;
 
 public class StreamTest {
 
 	@Test
 	public void shouldFindEntry() throws Exception {
-		Feed feed = FeedSource.fromUri("src/test/resources/simple.xml");
+		Feed feed = FeedReader.fromUri("src/test/resources/simple.xml");
 		Optional<Entry> entry = feed.stream().filter(e -> e.getUri().get().equals("3197a96f-cf9d-4791-ba3b-cafe2d02e9f2"))
 				.findFirst();
 

@@ -1,18 +1,18 @@
-package com.github.attiand.archive;
+package com.github.attiand.feedarchive;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import com.github.attiand.archive.Feed;
-import com.github.attiand.archive.FeedSource;
+import com.github.attiand.feedarchive.Feed;
+import com.github.attiand.feedarchive.FeedReader;
 
 public class FeedArchiveTest {
 
 	@Test
 	public void shouldIterateOverArchives() throws Exception {
-		Feed feed = FeedSource.fromUri("src/test/resources/archive1.xml");
+		Feed feed = FeedReader.fromUri("src/test/resources/archive1.xml");
 		long count = feed.stream().count();
 
 		assertThat(count, is(101L));
@@ -23,7 +23,7 @@ public class FeedArchiveTest {
 
 	@Test
 	public void shouldIterateOverArchivesBackward() throws Exception {
-		Feed feed = FeedSource.fromUri("src/test/resources/archive2.xml");
+		Feed feed = FeedReader.fromUri("src/test/resources/archive2.xml");
 		long count = feed.reverseStream().count();
 
 		assertThat(count, is(101L));

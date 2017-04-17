@@ -7,7 +7,7 @@ Stream API for Atom feed archives (RFC 5005). Follows `next-archive` and `prev-a
 ### Read forward
 
 ```java
-Feed feed = FeedSource.fromUri("http://localhost:8080/feed/1");
+Feed feed = FeedReader.fromUri("http://localhost:8080/feed/1");
 feed.stream().map(e -> e.getUri()).
               filter(Optional::isPresent).
               map(Optional::get).
@@ -17,7 +17,7 @@ feed.stream().map(e -> e.getUri()).
 ### Read backward
 
 ```java
-Feed feed = FeedSource.fromUri("http://localhost:8080/feed/recent");
+Feed feed = FeedReader.fromUri("http://localhost:8080/feed/recent");
 feed.reverseStream().map(e -> e.getUri()).
                      filter(Optional::isPresent).
                      map(Optional::get).
@@ -26,7 +26,7 @@ feed.reverseStream().map(e -> e.getUri()).
 ### Find specific node
 
 ```java
-Feed feed = FeedSource.fromUri("http://localhost:8080/feed/1");
+Feed feed = FeedReader.fromUri("http://localhost:8080/feed/1");
 Optional<Entry> entry = feed.stream().
     filter(e -> e.getUri().isPresent() && e.getUri().get().equals("3197a96f-cf9d-4791-ba3b-cafe2d02e9f2")).
     findFirst();

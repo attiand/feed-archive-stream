@@ -1,4 +1,4 @@
-package com.github.attiand.archive;
+package com.github.attiand.feedarchive.internal;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,46 +15,57 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
 
-import com.github.attiand.archive.internal.AbstractFeedSource;
+import com.github.attiand.feedarchive.FeedSource;
+import com.github.attiand.feedarchive.FeedSourceException;
+import com.github.attiand.feedarchive.FeedSourceFactory;
 
-public class FeedSourceFactory {
+public class DefaultFeedSourceFactory implements FeedSourceFactory {
 
 	enum SSL {
-		INSECURE, PROPERTY
+		UNSECURE, PROPERTY
 	}
 
 	private final SSL ssl;
 
-	private FeedSourceFactory(SSL ssl) {
+	private DefaultFeedSourceFactory(SSL ssl) {
 		this.ssl = ssl;
 	}
 
-	public static FeedSourceFactory insecure() {
-		return new FeedSourceFactory(SSL.INSECURE);
+	public static DefaultFeedSourceFactory unsecure() {
+		return new DefaultFeedSourceFactory(SSL.UNSECURE);
 	}
 
-	public static FeedSourceFactory secure() {
-		return new FeedSourceFactory(SSL.PROPERTY);
+	public static DefaultFeedSourceFactory secure() {
+		return new DefaultFeedSourceFactory(SSL.PROPERTY);
 	}
 
-	public AbstractFeedSource create(String schema) {
+	@Override
+	public FeedSource create(URI uri) {
+		String schema = uri.getScheme();
+
 		if (schema == null) {
-			return new FileClient();
+			return new FileSource(uri);
 		} else if (schema.equals("https")) {
-			if (ssl == SSL.INSECURE) {
-				return new TrustedHttpsClient();
+			if (ssl == SSL.UNSECURE) {
+				return new TrustedHttpsSource(uri);
 			} else {
-				return new HttpsClient();
+				return new HttpsSource(uri);
 			}
 		} else {
-			return new DefaultClient();
+			return new DefaultSource(uri);
 		}
 	}
 
-	class FileClient implements AbstractFeedSource {
+	class FileSource implements FeedSource {
+
+		private final URI uri;
+
+		public FileSource(URI uri) {
+			this.uri = uri;
+		}
 
 		@Override
-		public InputStream getContent(URI uri) {
+		public InputStream getContent() {
 			try {
 				return Files.newInputStream(Paths.get(uri.toString()));
 			} catch (IOException e) {
@@ -67,10 +78,16 @@ public class FeedSourceFactory {
 		}
 	}
 
-	class DefaultClient implements AbstractFeedSource {
+	class DefaultSource implements FeedSource {
+
+		private final URI uri;
+		
+		public DefaultSource(URI uri) {
+			this.uri = uri;
+		}
 
 		@Override
-		public InputStream getContent(URI uri) {
+		public InputStream getContent() {
 			try {
 				return uri.toURL().openStream();
 			} catch (IOException e) {
@@ -83,15 +100,18 @@ public class FeedSourceFactory {
 		}
 	}
 
-	static class AbstractHttpsClient implements AbstractFeedSource {
+	static class AbstractHttpsSource implements FeedSource {
+		
+		private final URI uri;
 		private final CloseableHttpClient client;
 
-		AbstractHttpsClient(CloseableHttpClient client) {
+		AbstractHttpsSource(URI uri, CloseableHttpClient client) {
+			this.uri = uri;
 			this.client = client;
 		}
 
 		@Override
-		public InputStream getContent(URI uri) {
+		public InputStream getContent() {
 			HttpGet request = new HttpGet(uri);
 
 			try {
@@ -112,17 +132,17 @@ public class FeedSourceFactory {
 		}
 	}
 
-	static class HttpsClient extends AbstractHttpsClient {
+	static class HttpsSource extends AbstractHttpsSource {
 
-		HttpsClient() {
-			super(HttpClientBuilder.create().useSystemProperties().build());
+		HttpsSource(URI uri) {
+			super(uri, HttpClientBuilder.create().useSystemProperties().build());
 		}
 	}
 
-	static class TrustedHttpsClient extends AbstractHttpsClient {
+	static class TrustedHttpsSource extends AbstractHttpsSource {
 
-		public TrustedHttpsClient() {
-			super(createClient());
+		public TrustedHttpsSource(URI uri) {
+			super(uri, createClient());
 		}
 
 		static CloseableHttpClient createClient() {

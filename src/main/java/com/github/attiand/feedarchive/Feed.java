@@ -1,4 +1,4 @@
-package com.github.attiand.archive;
+package com.github.attiand.feedarchive;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,8 +14,7 @@ import java.util.Spliterators;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import com.github.attiand.archive.internal.AbstractFeedSource;
-import com.github.attiand.archive.internal.Direction;
+import com.github.attiand.feedarchive.internal.Direction;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.feed.synd.SyndLink;
@@ -87,8 +86,7 @@ public class Feed {
 	}
 
 	Optional<SyndFeed> getFeed(URI uri) {
-		try (AbstractFeedSource httpClient = factory.create(uri.getScheme());
-				InputStream stream = httpClient.getContent(uri)) {
+		try (FeedSource httpClient = factory.create(uri); InputStream stream = httpClient.getContent()) {
 
 			SyndFeedInput input = new SyndFeedInput();
 			return Optional.of(input.build(new XmlReader(stream)));

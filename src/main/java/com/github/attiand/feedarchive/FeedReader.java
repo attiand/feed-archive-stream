@@ -1,8 +1,18 @@
-package com.github.attiand.archive;
+package com.github.attiand.feedarchive;
 
 import java.net.URI;
 
-public class FeedSource {
+import com.github.attiand.feedarchive.internal.DefaultFeedSourceFactory;
+
+public class FeedReader {
+
+	public static FeedSourceFactory unsecure() {
+		return DefaultFeedSourceFactory.unsecure();
+	}
+
+	public static FeedSourceFactory secure() {
+		return DefaultFeedSourceFactory.secure();
+	}
 
 	/**
 	 * Create feed form uri
@@ -25,7 +35,7 @@ public class FeedSource {
 	 */
 
 	public static Feed fromUri(URI uri) {
-		return fromUri(uri, FeedSourceFactory.secure());
+		return fromUri(uri, secure());
 	}
 
 	/**

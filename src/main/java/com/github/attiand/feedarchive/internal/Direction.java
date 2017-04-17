@@ -1,4 +1,4 @@
-package com.github.attiand.archive.internal;
+package com.github.attiand.feedarchive.internal;
 
 public enum Direction {
 	FORWARD("next-archive"), BACKWARD("prev-archive");
