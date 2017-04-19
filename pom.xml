@@ -3,7 +3,7 @@
 
 	<groupId>com.github.attiand</groupId>
 	<artifactId>feed-archive-stream</artifactId>
-	<version>1.0</version>
+	<version>1.1-SNAPSHOT</version>
 
     <name>Feed Archive Stream API</name>
 	<description>Implements a stream API for atom feeds</description>
@@ -19,7 +19,7 @@
 		<connection>scm:git:git@github.com:attiand/feed-archive-stream.git</connection>
 		<url>https://github.com/attiand/feed-archive-stream</url>
 		<developerConnection>scm:git:git@github.com:attiand/feed-archive-stream.git</developerConnection>
-		<tag>feed-archive-stream-1.0</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<developers>
