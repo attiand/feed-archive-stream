@@ -1,25 +1,45 @@
 package com.github.attiand.feedarchive;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Optional;
-
-import org.junit.Test;
-
-import com.github.attiand.feedarchive.Entry;
-import com.github.attiand.feedarchive.Feed;
-import com.github.attiand.feedarchive.FeedReader;
+import org.junit.jupiter.api.Test;
 
 public class StreamTest {
 
 	@Test
-	public void shouldFindEntry() throws Exception {
-		Feed feed = FeedReader.fromUri("src/test/resources/simple.xml");
-		Optional<Entry> entry = feed.stream().filter(e -> e.getUri().get().equals("3197a96f-cf9d-4791-ba3b-cafe2d02e9f2"))
-				.findFirst();
+	public void shouldStreamArchives() throws Exception {
+		Feed feed = FeedReader.fromUri("src/test/resources/archive1.xml");
 
-		assertThat(entry.isPresent(), is(true));
-		assertThat(entry.get().getUpdatedDate().get().toInstant().toString(), is("2017-02-24T09:52:33Z"));
+		assertThat(feed.stream()).hasSize(101);
+		assertThat(feed.stream().findFirst()).hasValueSatisfying(e -> {
+			assertThat(e.getUri()).hasValueSatisfying(uri -> {
+				assertThat(uri).isEqualTo("c66740f8-f776-48a2-b4d6-d0197975133e");
+			});
+		});
+
+		assertThat(feed.stream().skip(100).findFirst()).hasValueSatisfying(e -> {
+			assertThat(e.getUri()).hasValueSatisfying(uri -> {
+				assertThat(uri).isEqualTo("e4b3606b-d989-4044-a7ec-79527e075afe");
+			});
+		});
+	}
+
+	@Test
+	public void shouldStreamArchivesBackward() throws Exception {
+		Feed feed = FeedReader.fromUri("src/test/resources/archive2.xml");
+
+		assertThat(feed.reverseStream()).hasSize(101);
+
+		assertThat(feed.reverseStream().findFirst()).hasValueSatisfying(e -> {
+			assertThat(e.getUri()).hasValueSatisfying(uri -> {
+				assertThat(uri).isEqualTo("e4b3606b-d989-4044-a7ec-79527e075afe");
+			});
+		});
+
+		assertThat(feed.reverseStream().skip(100).findFirst()).hasValueSatisfying(e -> {
+			assertThat(e.getUri()).hasValueSatisfying(uri -> {
+				assertThat(uri).isEqualTo("c66740f8-f776-48a2-b4d6-d0197975133e");
+			});
+		});
 	}
 }

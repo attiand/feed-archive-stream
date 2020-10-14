@@ -2,30 +2,26 @@ package com.github.attiand.feedarchive;
 
 import java.util.Optional;
 
-import org.junit.Ignore;
-import org.junit.Test;
-
-import com.github.attiand.feedarchive.Entry;
-import com.github.attiand.feedarchive.Feed;
-import com.github.attiand.feedarchive.FeedReader;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 public class ExampleTest {
 
-	@Ignore
+	@Disabled
 	@Test
 	public void shouldReadForward() throws Exception {
 		Feed feed = FeedReader.fromUri("src/test/resources/simple.xml");
 		feed.stream().map(e -> e.getUri()).filter(Optional::isPresent).map(Optional::get).forEach(System.out::println);
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void shouldReadBackward() throws Exception {
 		Feed feed = FeedReader.fromUri("src/test/resources/simple.xml");
 		feed.reverseStream().map(e -> e.getUri()).filter(Optional::isPresent).map(Optional::get).forEach(System.out::println);
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void shouldfindNode() throws Exception {
 		Feed feed = FeedReader.fromUri("src/test/resources/simple.xml");
